@@ -28,11 +28,16 @@ To use the shared library in your Jenkins pipelines, you'll need to include it a
 1. Open Jenkins and navigate to **Manage Jenkins > Configure System**.
 2. Scroll down to the **Global Pipeline Libraries** section.
 3. Add a new library configuration:
-    - Name: `jenkins-shared-lib` (or any name of your choice).
+    - Name: `f3lib` (or any name of your choice).
     - Default version: Specify the branch or version to use (e.g., `main` or `master`).
     - Project Repository: Provide the URL to
+![img.png](shared_library_settings.png)
+
+## Usage
 
 ```grooy
+@Library('f3lib') _
+
 pipeline {
     agent any 
     stages { 
