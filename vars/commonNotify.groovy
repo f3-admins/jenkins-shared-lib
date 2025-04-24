@@ -1,7 +1,7 @@
 // vars/commonNotify.groovy
 
 def call(boolean isSuccess) {
-    def status = isSuccess ? "✅ Deploy succeeded" : "❌ Deploy failed"
+    def status = isSuccess ? "Deploy succeeded" : "Deploy failed"
     def emoji = isSuccess ? "✅" : "❌"
 
     slackSend(
