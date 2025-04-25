@@ -12,7 +12,7 @@ graph TD
     A --> C[README.md]
     B --> B1[commonNotify.groovy]
     B --> B2[commonCleanup.groovy]
-    B --> B3[emailNotificationService.groovy]
+    B --> B3[commonEmail.groovy]
 ```
 ### Key Directories and Files
 
@@ -21,7 +21,7 @@ graph TD
 
     - `commonNotify.groovy`: Script for managing notifications in pipelines.
     - `commonCleanup.groovy`: Script for handling cleanup tasks in pipelines.
-    - `emailNotificationService.groovy`: Script for handling send notifications email in pipelines.
+    - `commonEmail.groovy`: Script for handling send notifications email in pipelines.
 
 ## Usage in Jenkins Pipeline
 
@@ -72,31 +72,17 @@ pipeline {
     post {
         success {
             script {
-                commonNotify(
-                    to: 'wangty@f3ens.com',
-                    subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    PROJECT_NAME: env.PROJECT_NAME,
-                    BUILD_NUMBER: env.BUILD_NUMBER,
-                    BUILD_STATUS: 'SUCCESS',
-                    CAUSE: currentBuild.getBuildCauses().toString(),
-                    BUILD_URL: env.BUILD_URL,
-                    PROJECT_URL: env.JOB_URL,
-                    BUILD_LOG: currentBuild.rawBuild.getLog(100) // 获取构建日志最后 100 行
+                commonEmail(
+                    'success@abc.com',
+                    "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
                 )
             }
         }
         failure {
             script {
-                commonNotify(
-                    to: 'wangty@f3ens.com',
-                    subject: "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                    PROJECT_NAME: env.PROJECT_NAME,
-                    BUILD_NUMBER: env.BUILD_NUMBER,
-                    BUILD_STATUS: 'FAILURE',
-                    CAUSE: currentBuild.getBuildCauses().toString(),
-                    BUILD_URL: env.BUILD_URL,
-                    PROJECT_URL: env.JOB_URL,
-                    BUILD_LOG: currentBuild.rawBuild.getLog(100) // 获取构建日志最后 100 行
+                commonEmail(
+                    'failure@abc.com',
+                    "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
                 )
             }
         }
