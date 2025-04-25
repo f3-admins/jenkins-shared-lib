@@ -72,18 +72,22 @@ pipeline {
     post {
         success {
             script {
-                commonEmail(
-                    to:'success@abc.com',
-                    subject:"✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
-                )
+                commonEmail([
+                    to: 'success@abc.com',
+                    status: true, // Indicates success
+                    job_name: env.JOB_NAME,
+                    build_number: env.BUILD_NUMBER
+                ])
             }
         }
         failure {
             script {
-                commonEmail(
-                    to:'failure@abc.com',
-                    subject:"❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
-                )
+                commonEmail([
+                    to: 'failure@abc.com',
+                    status: false, // Indicates failure
+                    job_name: env.JOB_NAME,
+                    build_number: env.BUILD_NUMBER
+                ])
             }
         }
     }
