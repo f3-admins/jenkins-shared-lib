@@ -73,16 +73,16 @@ pipeline {
         success {
             script {
                 commonEmail(
-                    'success@abc.com',
-                    "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
+                    to:'success@abc.com',
+                    subject:"✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
                 )
             }
         }
         failure {
             script {
                 commonEmail(
-                    'failure@abc.com',
-                    "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
+                    to:'failure@abc.com',
+                    subject:"❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER} Build Status"
                 )
             }
         }
