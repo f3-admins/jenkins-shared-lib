@@ -14,6 +14,9 @@ def call(Map params) {
         error "Build number ('build_number') is required."
     }
 
+    // Print the logContent to ensure it's being passed correctly
+    echo "Log Content: ${params.logContent}"
+    
     // Determine status message based on the boolean value
     def statusMessage = params.status ? "✅ SUCCESS" : "❌ FAILURE"
 
