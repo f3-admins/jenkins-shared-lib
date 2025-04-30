@@ -13,9 +13,6 @@ def call(Map params) {
     if (!params?.build_number) {
         error "Build number ('build_number') is required."
     }
-
-    // Print the logContent to ensure it's being passed correctly
-    echo "Log Content: ${params.logContent}"
     
     // Determine status message based on the boolean value
     def statusMessage = params.status ? "✅ SUCCESS" : "❌ FAILURE"
@@ -26,9 +23,6 @@ def call(Map params) {
         to: params.to,
         subject: subject,
         mimeType: 'text/html',
-        body: """
-            ${SCRIPT, template="build_status-v2.groovy"}
-            <p>Log content: ${logContent}</p>
-        """
+        body: '${SCRIPT, template="build_status.groovy"}'
     )
 }
