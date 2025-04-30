@@ -26,8 +26,11 @@ def call(Map params) {
         to: params.to,
         subject: subject,
         mimeType: 'text/html',
-        body: '${SCRIPT, template="build_status-v2.groovy"}'
+        //body: '${SCRIPT, template="build_status-v2.groovy"}'
         //body: '${SCRIPT, template="jenkins-generic-matrix-email-html.template"}',
-        variables: [logContent: params.logContent] // Passing logContent as a variable
+        body: """
+            ${SCRIPT, template="build_status-v2.groovy"}
+            ${params.logContent ? '<p>The following log content is from this build:</p><pre>' + params.logContent + '</pre>' : ''}
+        """
     )
 }
