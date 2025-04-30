@@ -23,6 +23,6 @@ def call(Map params) {
         to: params.to,
         subject: subject,
         mimeType: 'text/html',
-        body: '${SCRIPT, template="build_status.groovy"}'
+        body: '${SCRIPT, template="build_status-v2.groovy"}'
     )
 }
