@@ -10,6 +10,7 @@ The project structure is as follows:
 graph TD
     A[jenkins-shared-lib] --> B[vars]
     A --> C[README.md]
+    A --> D[email-templates]
     B --> B1[commonNotify.groovy]
     B --> B2[commonCleanup.groovy]
     B --> B3[commonEmail.groovy]
@@ -23,6 +24,10 @@ graph TD
     - `commonCleanup.groovy`: Script for handling cleanup tasks in pipelines.
     - `commonEmail.groovy`: Script for handling send notifications email in pipelines.
 
+- **`email-templates/`**:
+  Contains Groovy script content templates, which must be saved to the `#JENKINS_HOME/email-templates` folder.
+    - `build_status.groovy`: the template without artifacts information
+    - `build_status-v2.groovy`: the template with artifacts information
 ## Usage in Jenkins Pipeline
 
 To use the shared library in your Jenkins pipelines, you'll need to include it as a global shared library in Jenkins. Follow the steps below to set it up:
@@ -72,6 +77,7 @@ pipeline {
     post {
         success {
             script {
+                // use the template without artifacts information
                 commonEmail([
                     to: 'success@abc.com',
                     status: true, // Indicates success
@@ -82,7 +88,8 @@ pipeline {
         }
         failure {
             script {
-                commonEmail([
+                // use the template with artifacts information
+                commonEmailV2([
                     to: 'failure@abc.com',
                     status: false, // Indicates failure
                     job_name: env.JOB_NAME,
