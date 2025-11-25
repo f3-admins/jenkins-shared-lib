@@ -10,7 +10,7 @@ def call(Map params = [:]) {
     def DOMAIN_NAME = params.DOMAIN_NAME ?: (env.DOMAIN_NAME ?: '')
     def DOMAIN_OWNER = params.DOMAIN_OWNER ?: (env.DOMAIN_OWNER ?: '')
     def REPO_NAME = params.REPO_NAME ?: (env.REPO_NAME ?: '')
-    def EXPECTED_SOURCE_NAME = params.EXPECTED_SOURCE_NAME ?: (env.EXPECTED_SOURCE_NAME ?: '')
+    def EXPECTED_SOURCE_NAME = params.EXPECTED_SOURCE_NAME ?: (env.EXPECTED_SOURCE_NAME ?: 'f3engineers/f3-repo')
 
     if (!AWS_REGION) error "AWS_REGION is required"
     if (!DOMAIN_NAME) error "DOMAIN_NAME is required"
